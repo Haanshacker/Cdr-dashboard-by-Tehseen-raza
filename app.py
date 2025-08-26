@@ -22,7 +22,7 @@ st.markdown("""
         }
     </style>
     <div class="title">📊 CDR Dashboard</div>
-    <div class="subtitle">by Tehseen Razzaq</div>
+    <div class="subtitle">by Tehseen Raza</div>
 """, unsafe_allow_html=True)
 
 # File uploader
