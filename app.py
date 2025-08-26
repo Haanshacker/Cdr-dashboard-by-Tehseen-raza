@@ -24,7 +24,19 @@ if uploaded_file:
         "imei": "imei",
         "sitelocation": "site"
     }, inplace=True)
+# Step 1: Rename columns
+df.rename(columns={
+    "calltype": "direction",
+    "aparty": "caller",
+    "bparty": "callee",
+    "datetime": "start_time",
+    "duration": "duration_sec",
+    "imei": "imei",
+    "sitelocation": "site"
+}, inplace=True)
 
+# Step 2: Now you can safely convert to datetime
+df["start_time"] = pd.to_datetime(df["start_time"], errors="coerce")
     # Clean direction
     df["direction"] = df["direction"].str.lower().replace({
         "incoming sms": "sms_in",
@@ -74,7 +86,9 @@ if uploaded_file:
     st.subheader("📅 Timeline of Activity")
     timeline = df.set_index("start_time").resample("H")["duration_sec"].sum()
     st.line_chart(timeline)
-
+if "Datetime" not in df.columns:
+    st.error("❌ 'Datetime' column not found in uploaded file.")
+    st.stop()
     # Map
     st.subheader("🗺️ Cell Site Locations")
     st.map(df[["latitude", "longitude"]].dropna())
