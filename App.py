@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 import streamlit as st
-import streamlit_plotly_events as px
+import plotly.express as px
 from datetime import datetime, timedelta, date
 
 st.set_page_config(page_title="CDR Analysis Dashboard", layout="wide")
